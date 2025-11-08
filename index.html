@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schwab Digital Learning Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            background: #2c3e50;
+            padding: 60px 50px 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-20px, -20px) rotate(180deg); }
+        }
+        
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-size: 11px;
+            color: #2c3e50;
+            font-weight: 700;
+            letter-spacing: 1px;
+            z-index: 2;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .header-tag {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #3498db;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            animation: slideInLeft 0.6s ease-out 0.2s both;
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+            animation: slideInLeft 0.6s ease-out 0.3s both;
+        }
+        
+        .header .subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            animation: slideInLeft 0.6s ease-out 0.4s both;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+        
+        .left-column {
+            background: white;
+            padding: 50px 45px;
+            animation: slideInLeft 0.8s ease-out 0.5s both;
+        }
+        
+        .right-column {
+            background: #f8f9fa;
+            padding: 50px 45px;
+            animation: slideInRight 0.8s ease-out 0.5s both;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .section:nth-child(1) { animation-delay: 0.6s; }
+        .section:nth-child(2) { animation-delay: 0.8s; }
+        .section:nth-child(3) { animation-delay: 1s; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            color: #e74c3c;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .section-title:hover {
+            transform: translateX(5px);
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 28px;
+            background: linear-gradient(180deg, #e74c3c, #c0392b);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
+        }
+        
+        .section-title:hover::before {
+            height: 35px;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.5);
+        }
+        
+        .section-content {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+        
+        .item-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .item-list li {
+            margin-bottom: 20px;
+            padding-left: 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .item-list li:hover {
+            transform: translateX(5px);
+        }
+        
+        .item-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .item-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #e74c3c;
+            display: inline-block;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 rgba(231, 76, 60, 0.5);
+        }
+        
+        .item-list li:hover .item-title::before {
+            transform: scale(1.5);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+        }
+        
+        .item-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            padding-left: 18px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .stat-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.2);
+            border-left-width: 6px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .metric-circles {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .circle {
+            text-align: center;
+            flex: 1;
+            min-width: 85px;
+        }
+        
+        .circle-graph {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .circle-graph::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .circle-graph:hover {
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.5);
+        }
+        
+        .circle-graph:hover::before {
+            opacity: 1;
+        }
+        
+        .circle-label {
+            font-size: 11px;
+            color: #2c3e50;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .quote-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #f0ad4e;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 120px;
+            color: rgba(240, 173, 78, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .quote-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(240, 173, 78, 0.3);
+        }
+        
+        .quote-box p {
+            color: #856404;
+            font-size: 14px;
+            line-height: 1.7;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            color: white;
+            padding: 25px 50px;
+            font-size: 13px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+        
+        .footer strong {
+            color: #3498db;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover .icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease-out;
+        }
+
+        #downloadPDF {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #downloadPDF:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        #downloadPDF:active {
+            transform: translateY(0);
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                background: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .circle-graph, .stat-item, .quote-box {
+                break-inside: avoid;
+            }
+            #downloadPDF {
+                display: none !important;
+            }
+            .header, .header::before, .header::after {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* PDF rendering support */
+        .container * {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 32px;
+            }
+            .metric-circles {
+                gap: 10px;
+            }
+            .circle {
+                min-width: 70px;
+            }
+            .circle-graph {
+                width: 65px;
+                height: 65px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SCHWAB</div>
+            <div class="header-tag">TRANSFORM</div>
+            <h1>Digital Learning<br>Journey</h1>
+            <div class="subtitle">New Hire Onboarding Transformation</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="left-column">
+                <div class="section reveal">
+                    <h2 class="section-title"><span class="icon">📋</span> Project Summary</h2>
+                    <div class="section-content">
+                        <p>Schwab's new hire onboarding relied on a 200+ page static binder, resulting in inconsistent outcomes and high attrition. The mission was to reimagine onboarding as a digital, data-driven learning journey that improved performance, retention, and learner confidence.</p>
+                    </div>
+                </div>
+                
+                <div class="section reveal">
+                    <h2 class="section-title"><span class="icon">🎯</span> Design Process</h2>
+                    <ul class="item-list">
+                        <li>
+                            <div class="item-title">📊 Structured Analysis</div>
+                            <div class="item-description">Applied ADDIE for project structure, SAM for rapid iteration, Bloom's Taxonomy for learning objectives, and Kirkpatrick model for comprehensive evaluation.</div>
+                        </li>
+                        <li>
+                            <div class="item-title">🛠️ Development Tools</div>
+                            <div class="item-description">Developed scenario-based modules in Articulate 360 and deployed adaptive learning paths in Cornerstone LMS.</div>
+                        </li>
+                        <li>
+                            <div class="item-title">🤝 Collaboration & Iteration</div>
+                            <div class="item-description">Partnered with SMEs and trainers to co-author realistic scenarios, piloted with new-hire cohorts, and refined modules using learner analytics.</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="quote-box reveal">
+                    <p>"Instructional design is equal parts analysis, empathy, and experimentation. Transforming Schwab's onboarding proved how thoughtful design elevates both performance and culture."</p>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="section reveal">
+                    <h2 class="section-title"><span class="icon">⚡</span> Key Enhancements</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">🎮 Interactive Simulations</div>
+                            <div class="stat-value">Job aids and scenario-based practice for real-world application</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">💡 Real-Time Feedback</div>
+                            <div class="stat-value">Learner dashboards with performance tracking and insights</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">🎯 Adaptive Pathways</div>
+                            <div class="stat-value">Role-based learning journeys for faster job readiness</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">🔄 Reinforcement Strategy</div>
+                            <div class="stat-value">30/60/90-day follow-up bursts to strengthen retention</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section reveal">
+                    <h2 class="section-title"><span class="icon">📈</span> Impact & Results</h2>
+                    <div class="metric-circles">
+                        <div class="circle">
+                            <div class="circle-graph">📉</div>
+                            <div class="circle-label">Attrition Decreased</div>
+                        </div>
+                        <div class="circle">
+                            <div class="circle-graph">📈</div>
+                            <div class="circle-label">Retention Increased</div>
+                        </div>
+                        <div class="circle">
+                            <div class="circle-graph">+25%</div>
+                            <div class="circle-label">Learner Confidence</div>
+                        </div>
+                        <div class="circle">
+                            <div class="circle-graph">⚡</div>
+                            <div class="circle-label">Handle Time Reduced</div>
+                        </div>
+                        <div class="circle">
+                            <div class="circle-graph">🌱</div>
+                            <div class="circle-label">Zero Print Costs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <strong>OUTCOME:</strong> A scalable, digital onboarding experience that improved business outcomes and strengthened learner confidence
+        </div>
+    </div>
+
+    <button id="downloadPDF">Download as PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        // Scroll reveal animation
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', reveal);
+        
+        // Trigger reveal on load for elements in viewport
+        document.addEventListener('DOMContentLoaded', function() {
+            reveal();
+            
+            // Add interactive click effects to metrics
+            const circles = document.querySelectorAll('.circle-graph');
+            circles.forEach(circle => {
+                circle.addEventListener('click', function() {
+                    this.style.animation = 'none';
+                    setTimeout(() => {
+                        this.style.animation = '';
+                    }, 10);
+                });
+            });
+            
+            // Add hover effects to stat items
+            const statItems = document.querySelectorAll('.stat-item');
+            statItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px) scale(1.02)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(10px)';
+                });
+            });
+        });
+        
+        // Parallax effect on header shapes
+        document.addEventListener('mousemove', function(e) {
+            const header = document.querySelector('.header');
+            if (header) {
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                header.style.backgroundPosition = `${mouseX * 20}px ${mouseY * 20}px`;
+            }
+        });
+
+        // PDF Download functionality
+        document.getElementById("downloadPDF").addEventListener("click", function() {
+            const element = document.querySelector(".container");
+            const button = document.getElementById("downloadPDF");
+            const body = document.body;
+            
+            // Hide button before generating PDF
+            button.style.display = 'none';
+            
+            // Store original styles
+            const originalBodyBackground = body.style.background;
+            const originalBodyPadding = body.style.padding;
+            const originalBodyDisplay = body.style.display;
+            const originalBodyAlign = body.style.alignItems;
+            const originalBodyJustify = body.style.justifyContent;
+            
+            // Temporarily simplify for rendering
+            body.style.background = 'white';
+            body.style.padding = '20px';
+            body.style.display = 'block';
+            body.style.alignItems = 'unset';
+            body.style.justifyContent = 'unset';
+            
+            // Disable animations temporarily
+            const style = document.createElement('style');
+            style.id = 'pdf-temp-style';
+            style.textContent = `
+                * {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                .header::before, .header::after {
+                    animation: none !important;
+                }
+                .container {
+                    box-shadow: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Scroll to top to ensure everything is in view
+            window.scrollTo(0, 0);
+            
+            // Small delay to let styles apply
+            setTimeout(() => {
+                const html2canvasOptions = { 
+                    scale: 2,
+                    useCORS: true,
+                    logging: true,
+                    letterRendering: true,
+                    allowTaint: false,
+                    backgroundColor: '#ffffff',
+                    scrollY: -window.scrollY,
+                    scrollX: -window.scrollX,
+                    width: element.scrollWidth,
+                    height: element.scrollHeight,
+                    windowWidth: document.documentElement.scrollWidth,
+                    windowHeight: document.documentElement.scrollHeight
+                };
+                
+                // Get element dimensions
+                html2canvas(element, html2canvasOptions).then(canvas => {
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'in',
+                        format: 'letter',
+                        compress: true
+                    });
+                    
+                    // Letter size dimensions in inches
+                    const pdfWidth = 8.5;
+                    const pdfHeight = 11;
+                    const margin = 0.3;
+                    const availableWidth = pdfWidth - (2 * margin);
+                    const availableHeight = pdfHeight - (2 * margin);
+                    
+                    // Calculate scaling to fit on one page
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
+                    const imgRatio = imgWidth / imgHeight;
+                    const pageRatio = availableWidth / availableHeight;
+                    
+                    let finalWidth, finalHeight;
+                    
+                    if (imgRatio > pageRatio) {
+                        // Image is wider than page ratio
+                        finalWidth = availableWidth;
+                        finalHeight = availableWidth / imgRatio;
+                    } else {
+                        // Image is taller than page ratio
+                        finalHeight = availableHeight;
+                        finalWidth = availableHeight * imgRatio;
+                    }
+                    
+                    // Center the image on the page
+                    const x = margin + (availableWidth - finalWidth) / 2;
+                    const y = margin + (availableHeight - finalHeight) / 2;
+                    
+                    pdf.addImage(imgData, 'JPEG', x, y, finalWidth, finalHeight);
+                    pdf.save('Schwab_Digital_Learning_Journey.pdf');
+                    
+                    // Restore original styles
+                    body.style.background = originalBodyBackground;
+                    body.style.padding = originalBodyPadding;
+                    body.style.display = originalBodyDisplay;
+                    body.style.alignItems = originalBodyAlign;
+                    body.style.justifyContent = originalBodyJustify;
+                    document.getElementById('pdf-temp-style').remove();
+                    button.style.display = 'block';
+                }).catch(err => {
+                    console.error('PDF generation error:', err);
+                    alert('Error generating PDF. Please try using Print (Ctrl+P) and "Save as PDF" instead.');
+                    
+                    // Restore original styles
+                    body.style.background = originalBodyBackground;
+                    body.style.padding = originalBodyPadding;
+                    body.style.display = originalBodyDisplay;
+                    body.style.alignItems = originalBodyAlign;
+                    body.style.justifyContent = originalBodyJustify;
+                    const tempStyle = document.getElementById('pdf-temp-style');
+                    if (tempStyle) tempStyle.remove();
+                    button.style.display = 'block';
+                });
+            }, 200);
+        });
+    </script>
+</body>
+</html>
